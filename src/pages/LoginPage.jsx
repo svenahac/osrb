@@ -24,7 +24,7 @@ export default function LoginPage() {
 
   const user = useUserStore((state) => state.user);
   console.log(user);
-  
+
   return (
     <div
       id="LoginPage"
