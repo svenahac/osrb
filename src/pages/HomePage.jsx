@@ -1,7 +1,9 @@
 import { useLayoutEffect, useState } from "react";
 import { handleLogout } from "../api/auth";
 import { useUserStore } from "../stores/user";
-
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import HeroComponent from "../components/HeroComponent";
 import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
@@ -16,21 +18,10 @@ export default function HomePage() {
   }
 
   return (
-    <div className=" min-h-screen flex flex-col justify-center items-center bg-bg1 bg-center ">
-      <div className="flex flex-row text-6xl text-white">
-        <h1 className="mr-2">OSR</h1> <p>Brewery</p>
-      </div>
-      <div>{userData.user_metadata.display_name}</div>
-      <div className="text-white">
-        <button
-          onClick={() => {
-            handleLogout();
-            navigate("/login");
-          }}
-        >
-          LogOut
-        </button>
-      </div>
+    <div>
+      <Header />
+      <HeroComponent />
+      <Footer />
     </div>
   );
 }
