@@ -1,8 +1,8 @@
-import LoginPage from "./LoginPage";
 import HomePage from "./HomePage";
 import { useState, useEffect } from "react";
 import { useUserStore } from "../stores/user";
 import { supabase } from "../supabase/supabase";
+import LandingPage from "./LandingPage";
 
 export default function LoadingPage() {
   const [isLoggedIn, setIsLoggedIn] = useState();
@@ -11,7 +11,7 @@ export default function LoadingPage() {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-  
+
     setIsLoggedIn(user);
   }
 
@@ -19,7 +19,7 @@ export default function LoadingPage() {
     getUser();
   }, []);
 
-  if (!isLoggedIn) return <LoginPage />;
+  if (!isLoggedIn) return <LandingPage />;
 
   return <HomePage />;
 }
