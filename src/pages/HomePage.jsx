@@ -1,9 +1,7 @@
-import { useEffect, useLayoutEffect, useState } from "react";
-import { handleLogout } from "../api/auth";
+import { useEffect, useState } from "react";
 import { useUserStore } from "../stores/user";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import LandingMidsection from "../components/LandingMidsection";
 import { useNavigate } from "react-router-dom";
 import CardComponent from "../components/Card";
 import { supabase } from "../supabase/supabase";
@@ -13,13 +11,6 @@ export default function HomePage() {
   const user = useUserStore((state) => state.user);
   const userData = useUserStore((state) => state.userData);
   const [posts, setPosts] = useState([]);
-
-  const data = {
-    title: "Sample Title",
-    description: "Sample Description",
-    type: "Sample Type",
-    file_path: "390d9a5d-897d-45df-89f7-7908200c9511-Forsen",
-  };
 
   useEffect(() => {
     getPosts();
@@ -61,7 +52,9 @@ export default function HomePage() {
       <Header />
       <div className="relative h-screen flex items-center justify-center bg-bg bg-center bg-cover">
         <div className="relative z-10 text-center px-4 md:px-8">
-          {renderPosts()}
+          <div className="flex justify-center gap-4 flex-wrap p-4">
+            {renderPosts()}
+          </div>
         </div>
       </div>
       <Footer />
