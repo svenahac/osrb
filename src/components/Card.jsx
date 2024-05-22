@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { supabase } from "./supabaseClient"; // Ensure the supabase client is correctly imported
+import { supabase } from "../supabase/supabase";
 
-function CardComponent(props){
-  const [data, setData] = useState(null);
+function CardComponent(props) {
+  const [downloadedFile, setDownloadedFile] = useState(null);
+  const data = props.data;
 
-  const downloadFile = async () => {
+  useEffect(() => {
+    downloadFile(props.data.file_path);
+  }, []);
+
+  const downloadFile = async (path) => {
     try {
       const { data, error } = await supabase.storage
         .from("content")
-        .download("390d9a5d-897d-45df-89f7-7908200c9511-akane22");
+        .download(path);
 
       if (error) {
         throw error;
@@ -23,27 +28,20 @@ function CardComponent(props){
 
   return (
     <div className="flex flex-wrap justify-center gap-4">
-      {data ? (
-        data.map((item) => (
-          <div
-            key={item.id}
-            className="max-w-xs rounded overflow-hidden shadow-lg bg-white"
-          >
-            <img className="w-full" src={item.image_url} alt={item.title} />
-            <div className="px-6 py-4">
-              <div className="font-bold text-xl mb-2">{item.title}</div>
-              <p className="text-gray-700 text-base">
-                <span className="font-bold">{item.type}</span>{" "}
-                {item.description}
-              </p>
-            </div>
-          </div>
-        ))
-      ) : (
-        <p>Loading...</p>
-      )}
+      <div
+        key={data.id}
+        className="max-w-xs rounded overflow-hidden shadow-lg bg-white"
+      >
+        <img className="w-full" src={downloadedFile} alt={data.title} />
+        <div className="px-6 py-4">
+          <div className="font-bold text-xl mb-2">{data.title}</div>
+          <p className="text-gray-700 text-base">
+            <span className="font-bold">{data.type}</span> {data.description}
+          </p>
+        </div>
+      </div>
     </div>
   );
-};
+}
 
 export default CardComponent;
