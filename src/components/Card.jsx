@@ -69,6 +69,9 @@ function CardComponent(props) {
             <span className="font-bold">{data.type}</span> {data.description}
           </p>
         </div>
+        <button className="mb-1 px-6 py-2 bg-cyan-500 text-white font-semibold rounded hover:bg-cyan-600 transition duration-300 self-end">
+          DOWNLOAD
+        </button>
       </div>
     </div>
   );

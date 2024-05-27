@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import CardComponent from "../components/Card";
+import SearchBar from "../components/SearchBar";
 import { supabase } from "../supabase/supabase";
 
 export default function HomePage() {
@@ -50,7 +51,8 @@ export default function HomePage() {
   return (
     <div>
       <Header />
-      <div className="relative h-screen flex items-center justify-center bg-bg bg-center bg-cover">
+      <div className="relative h-screen flex flex-col items-center justify-center bg-bg bg-center bg-cover">
+        <SearchBar />
         <div className="relative z-10 text-center px-4 md:px-8">
           <div className="flex justify-center gap-4 flex-wrap p-4">
             {renderPosts()}
