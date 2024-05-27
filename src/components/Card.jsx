@@ -5,10 +5,42 @@ function CardComponent(props) {
   const [downloadedFile, setDownloadedFile] = useState(null);
   const [dataType, setDataType] = useState(null);
   const data = props.data;
+  const [postUser, setPostUser] = useState(null);
 
   useEffect(() => {
     downloadFile(props.data.file_path);
+    //getPostUser(props.data.user_id);
   }, []);
+
+  async function getPostUser(id) {
+    try {
+      const { data, error } = await supabase.auth.admin.getUserById(id);
+      if (error) {
+        throw error;
+      }
+      if (data != null) {
+        setPostUser(data);
+        console.log(data);
+      }
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  }
+
+  const handleDownload = (fileUrl) => {
+    console.log("Downloading file:", fileUrl);
+    const link = document.createElement("a");
+    link.href = fileUrl;
+
+    const fileName = data.title;
+    link.download = fileName;
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+  };
 
   const downloadFile = async (path) => {
     try {
@@ -69,7 +101,10 @@ function CardComponent(props) {
             <span className="font-bold">{data.type}</span> {data.description}
           </p>
         </div>
-        <button className="mb-1 px-6 py-2 bg-cyan-500 text-white font-semibold rounded hover:bg-cyan-600 transition duration-300 self-end">
+        <button
+          onClick={() => handleDownload(downloadedFile)}
+          className="mb-1 px-6 py-2 bg-cyan-500 text-white font-semibold rounded hover:bg-cyan-600 transition duration-300 self-end"
+        >
           DOWNLOAD
         </button>
       </div>

@@ -7,7 +7,6 @@ import CardComponent from "../components/Card";
 import ProfileHeader from "../components/ProfileHeader";
 function ProfilePage() {
   const [posts, setPosts] = useState([]);
-
   const user = useUserStore((state) => state.user);
   const userData = useUserStore((state) => state.userData);
 
