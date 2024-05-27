@@ -9,23 +9,7 @@ function CardComponent(props) {
 
   useEffect(() => {
     downloadFile(props.data.file_path);
-    //getPostUser(props.data.user_id);
   }, []);
-
-  async function getPostUser(id) {
-    try {
-      const { data, error } = await supabase.auth.admin.getUserById(id);
-      if (error) {
-        throw error;
-      }
-      if (data != null) {
-        setPostUser(data);
-        console.log(data);
-      }
-    } catch (error) {
-      console.error("Error fetching user:", error);
-    }
-  }
 
   const handleDownload = (fileUrl) => {
     console.log("Downloading file:", fileUrl);
